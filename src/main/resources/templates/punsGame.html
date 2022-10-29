@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>P U N S</title>
+</head>
+<body>
+
+<h3>Actual: <span th:text="${actualWord}"></span></h3>
+
+<h3>Hints: <span th:text="${hint}"></span></h3>
+
+<form action="/newGame" method="post" role="form">
+    <button type="submit" class="btn btn-warning">+ New game +</button>
+</form>
+
+<div lang="en" th:replace="fragments/footer :: footer"> </div>
+
+</body>
+</html>
