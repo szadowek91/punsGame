@@ -16,12 +16,12 @@ import java.util.List;
  * @author PG
  */
 @Controller
-public class mainCtrl {
+public class MainCtrl {
 
     private final WordService wordService;
     private final DictService dictService;
     private final ImageService imageService;
-    public mainCtrl(WordService wordService, DictService dictService, ImageService imageService) {
+    public MainCtrl(WordService wordService, DictService dictService, ImageService imageService) {
         this.wordService = wordService;
         this.dictService = dictService;
         this.imageService = imageService;

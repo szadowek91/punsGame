@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>P U N S</title>
 </head>
-<body>
+<body onload="connect()">
 
 <h3>Actual word preview: <span th:text="${word}"></span></h3>
 
@@ -14,11 +14,18 @@
 
 <h3>Hints: <span th:text="${hintList}"></span></h3>
 
+<div>
+    <label>Your text:</label><input id="msgToSend" th:type="text">
+    <button onclick="sendMessage()" th:type="button">Send</button>
+    <p id="response"></p>
+</div>
 <form action="/newGame" method="post" role="form">
     <button type="submit" class="btn btn-warning">+ New game +</button>
 </form>
 
 <div lang="en" th:replace="fragments/footer :: footer"> </div>
 
+<script src="js.js"></script>
+<script src="stomp.js"></script>
 </body>
 </html>
