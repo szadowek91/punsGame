@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.szadowek91.punsGame.entity.WordEntity;
 import pl.szadowek91.punsGame.utils.FileUtils;
 import pl.szadowek91.punsGame.utils.RandomUtil;
-import pl.szadowek91.punsGame.utils.WordMapper;
+import pl.szadowek91.punsGame.utils.MapperUtil;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -22,7 +22,7 @@ public class WordService {
     @SneakyThrows
     public String selectRandomWord() {
         List<WordEntity> list = FileUtils.readTxt(path).stream()
-                .map(WordMapper::wordMapper)
+                .map(MapperUtil::wordMapper)
                 .toList();
         return list.get(RandomUtil.selectWordNumber(list.size())).getWord();
     }
@@ -68,5 +68,9 @@ public class WordService {
             return lettersNotOk;
         }
         return lettersNotOk;
+    }
+
+    public boolean checkWord(String inputWord, String actualWord) {
+        return inputWord.contains(actualWord.toUpperCase());
     }
 }

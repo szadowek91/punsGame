@@ -1,31 +1,24 @@
 package pl.szadowek91.punsGame.entity;
 
+import lombok.Getter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.awt.*;
 
 @Entity
+@Getter
 public class ImageEntity {
 
     @Id
     private int id;
     private String name;
-    private Image img;
+    private String imgUrl;
 
-    public ImageEntity(String name, Image img) {
+
+    public ImageEntity(String name, String imgUrl) {
         this.name = name;
-        this.img = img;
+        this.imgUrl = imgUrl;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Image getImg() {
-        return img;
-    }
 }

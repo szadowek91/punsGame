@@ -1,4 +1,4 @@
-package pl.szadowek91.punsGame.dto;
+package pl.szadowek91.punsGame.dto.word;
 
 import lombok.Getter;
 

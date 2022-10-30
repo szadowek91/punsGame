@@ -6,9 +6,13 @@
 </head>
 <body>
 
-<h3>Actual: <span th:text="${actualWord}"></span></h3>
+<h3>Actual word preview: <span th:text="${word}"></span></h3>
 
-<h3>Hints: <span th:text="${hint}"></span></h3>
+<h3>Word to guess: <span th:text="${blindWord}"></span></h3>
+
+<img th:src="@{${imageUrl}}" alt="/images/imagenotfound.jpg"/>
+
+<h3>Hints: <span th:text="${hintList}"></span></h3>
 
 <form action="/newGame" method="post" role="form">
     <button type="submit" class="btn btn-warning">+ New game +</button>

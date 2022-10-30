@@ -21,7 +21,7 @@ public class FileUtils {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                wordList.add(WordMapper.wordMapper(line));
+                wordList.add(MapperUtil.wordMapper(line));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,5 +56,14 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String readInputStream(InputStreamReader reader) {
+        try (BufferedReader in = new BufferedReader(reader)) {
+            return in.lines().collect(Collectors.joining());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

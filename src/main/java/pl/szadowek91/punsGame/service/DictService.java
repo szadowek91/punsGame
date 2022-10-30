@@ -5,10 +5,10 @@ import com.google.gson.reflect.TypeToken;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import pl.szadowek91.punsGame.config.Properties;
-import pl.szadowek91.punsGame.dto.WordDefinition;
-import pl.szadowek91.punsGame.dto.WordDictionaryDto;
+import pl.szadowek91.punsGame.dto.word.WordDefinition;
+import pl.szadowek91.punsGame.dto.word.WordDictionaryDto;
+import pl.szadowek91.punsGame.utils.FileUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
@@ -28,8 +28,9 @@ public class DictService {
     @SneakyThrows
     public List<String> getHints(String word) {
         Optional<WordDictionaryDto> wordDict = getWordDict(word);
-        List<String> stringList = new ArrayList<String>();
+        List<String> stringList = new ArrayList<>();
         if (wordDict.isEmpty()) {
+            stringList.add("Sorry, there are no hints available for this word.");
             return stringList;
         }
         stringList = wordDict.get().getMeanings()
@@ -46,24 +47,16 @@ public class DictService {
         try {
             URL url = new URL(Properties.DICTIONARY_API_URL + word);
             InputStreamReader reader = new InputStreamReader(url.openStream());
-            String s = readInputStream(reader);
+            String s = FileUtils.readInputStream(reader);
             Type type = new TypeToken<List<WordDictionaryDto>>() {
             }.getType();
             List<WordDictionaryDto> wordDictionaryDtos = new Gson().fromJson(s, type);
-            Optional<WordDictionaryDto> wordDictionaryDto = Optional.of(wordDictionaryDtos.get(0));
-            return wordDictionaryDto;
+            return Optional.of(wordDictionaryDtos.get(0));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return Optional.empty();
     }
 
-    private String readInputStream(InputStreamReader reader) {
-        try (BufferedReader in = new BufferedReader(reader)) {
-            return in.lines().collect(Collectors.joining());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
+
 }

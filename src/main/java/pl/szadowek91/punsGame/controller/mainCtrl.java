@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.szadowek91.punsGame.service.DictService;
+import pl.szadowek91.punsGame.service.ImageService;
 import pl.szadowek91.punsGame.service.WordService;
 
 import javax.servlet.http.HttpSession;
@@ -19,10 +20,11 @@ public class mainCtrl {
 
     private final WordService wordService;
     private final DictService dictService;
-
-    public mainCtrl(WordService wordService, DictService dictService) {
+    private final ImageService imageService;
+    public mainCtrl(WordService wordService, DictService dictService, ImageService imageService) {
         this.wordService = wordService;
         this.dictService = dictService;
+        this.imageService = imageService;
     }
 
     @GetMapping("/test")
@@ -36,27 +38,33 @@ public class mainCtrl {
             String randomWord = wordService.selectRandomWord();
             String actualWord = wordService.initShowActualWord(randomWord);
             List<String> hintsFromAPI = dictService.getHints(randomWord);
-            String collectedHints = String.join(" || \n", hintsFromAPI);
+            String collectedHints = String.join(" \n || ", hintsFromAPI);
+            String imageUrl = imageService.getImageURL(randomWord);
 
-            session.setAttribute("hint", collectedHints);
-            session.setAttribute("actualWord", actualWord);
+            session.setAttribute("hintList", collectedHints);
+            session.setAttribute("blindWord", actualWord);
             session.setAttribute("word", randomWord);
+            session.setAttribute("imageUrl", imageUrl);
         }
         String word = (String) session.getAttribute("word");
-        String actualWord = (String) session.getAttribute("actualWord");
-        String hintsFromAPI = (String) session.getAttribute("hint");
+        String actualWord = (String) session.getAttribute("blindWord");
+        String hintsFromAPI = (String) session.getAttribute("hintList");
+        String imageUrl = (String) session.getAttribute("imageUrl");
 
-        model.addAttribute("actualWord", actualWord);
-        model.addAttribute("hint", hintsFromAPI);
+        model.addAttribute("blindWord", actualWord);
+        model.addAttribute("hintList", hintsFromAPI);
+        model.addAttribute("imageUrl", imageUrl);
         model.addAttribute("word", word); // at the end to remove (for review purposes)
 
         return "punsGame";
     }
 
     @PostMapping("/enteredPhrase")
-    public String enteredLetter(@RequestParam("inputWord") String inputWord, HttpSession session){
+    public String enteredPhrase(@RequestParam("inputWord") String inputWord, HttpSession session){
         String word = (String) session.getAttribute("word");
-        String actualWord = (String) session.getAttribute("actualWord");
+
+        boolean isWordGuessed = wordService.checkWord(inputWord, word);
+        session.setAttribute("wordGuessed", isWordGuessed);
 
         return "redirect:/";
     }
