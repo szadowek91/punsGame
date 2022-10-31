@@ -15,9 +15,11 @@
 <h3>Hints: <span th:text="${hintList}"></span></h3>
 
 <div>
-    <label>Your text:</label><input id="msgToSend" th:type="text">
-    <button onclick="sendMessage()" th:type="button">Send</button>
+    <form action="/enteredPhrase" method="post" role="form">
+    <label>Your text:</label><input id="msgToSend" name="msgToSend" th:type="text">
+    <button onclick="sendMessage()" type="submit" class="btn btn-warning">Send</button>
     <p id="response"></p>
+    </form>
 </div>
 <form action="/newGame" method="post" role="form">
     <button type="submit" class="btn btn-warning">+ New game +</button>

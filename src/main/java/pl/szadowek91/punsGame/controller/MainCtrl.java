@@ -45,22 +45,25 @@ public class MainCtrl {
             session.setAttribute("blindWord", actualWord);
             session.setAttribute("word", randomWord);
             session.setAttribute("imageUrl", imageUrl);
+            session.setAttribute("isWordGuessed", false);
         }
         String word = (String) session.getAttribute("word");
         String actualWord = (String) session.getAttribute("blindWord");
         String hintsFromAPI = (String) session.getAttribute("hintList");
         String imageUrl = (String) session.getAttribute("imageUrl");
+        boolean isWordGuessed = (boolean) session.getAttribute("isWordGuessed");
 
         model.addAttribute("blindWord", actualWord);
         model.addAttribute("hintList", hintsFromAPI);
         model.addAttribute("imageUrl", imageUrl);
+        model.addAttribute("isWordGuessed", isWordGuessed);
         model.addAttribute("word", word); // at the end to remove (for review purposes)
 
         return "punsGame";
     }
 
     @PostMapping("/enteredPhrase")
-    public String enteredPhrase(@RequestParam("inputWord") String inputWord, HttpSession session){
+    public String enteredPhrase(@RequestParam("msgToSend") String inputWord, HttpSession session){
         String word = (String) session.getAttribute("word");
 
         boolean isWordGuessed = wordService.checkWord(inputWord, word);
