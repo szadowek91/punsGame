@@ -14,9 +14,9 @@ client.connect({},function (frame) {
         showMessage(JSON.parse(message.body).value)
     });
 })
+}
 
 function sendMessage(){
 var msgToSend = document.getElementById('msgToSend').value;
 client.send("/app/chat", {}, JSON.stringify({'value': msgToSend}));
-}
 }
