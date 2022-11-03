@@ -18,5 +18,5 @@ client.connect({},function (frame) {
 
 function sendMessage(){
 var msgToSend = document.getElementById('msgToSend').value;
-client.send("/app/chat", {}, JSON.stringify({'value': msgToSend}));
+client.send("/app/chat", {}, JSON.stringify({'value': msgToSend,'gameId': gameId}));
 }

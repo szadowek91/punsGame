@@ -6,20 +6,22 @@
 </head>
 <body onload="connect()">
 
-<h3>Actual word preview: <span th:text="${word}"></span></h3>
+<!--<h3>Actual word preview: <span th:text="${word}"></span></h3>-->
 
-<h3>Word to guess: <span th:text="${blindWord}"></span></h3>
+<h3>Word to guess: <span th:text="${game.blindWord}"></span></h3>
 
-<img th:src="@{${imageUrl}}" alt="/images/imagenotfound.jpg"/>
+<img th:src="@{${game.imageUrl}}" alt="/images/imagenotfound.jpg"/>
 
-<h3>Hints: <span th:text="${hintList}"></span></h3>
+<h3>Hints: <th:block th:each="hint : ${game.hintList}">
+    <span th:text="${hint}"></span></th:block>
+</h3>
 
 <div>
-    <form action="/enteredPhrase" method="post" role="form">
+<!--    <form action="/enteredPhrase" method="post" role="form">-->
     <label>Your text:</label><input id="msgToSend" name="msgToSend" th:type="text">
     <button onclick="sendMessage()" type="submit" class="btn btn-warning">Send</button>
     <p id="response"></p>
-    </form>
+<!--    </form>-->
 </div>
 <form action="/newGame" method="post" role="form">
     <button type="submit" class="btn btn-warning">+ New game +</button>

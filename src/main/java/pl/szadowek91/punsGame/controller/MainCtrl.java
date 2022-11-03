@@ -5,12 +5,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.szadowek91.punsGame.dto.game.GameDto;
 import pl.szadowek91.punsGame.service.DictService;
+import pl.szadowek91.punsGame.service.GameService;
 import pl.szadowek91.punsGame.service.ImageService;
 import pl.szadowek91.punsGame.service.WordService;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  * @author PG
@@ -19,12 +20,10 @@ import java.util.List;
 public class MainCtrl {
 
     private final WordService wordService;
-    private final DictService dictService;
-    private final ImageService imageService;
-    public MainCtrl(WordService wordService, DictService dictService, ImageService imageService) {
+    private final GameService gameService;
+    public MainCtrl(WordService wordService, GameService gameService) {
         this.wordService = wordService;
-        this.dictService = dictService;
-        this.imageService = imageService;
+        this.gameService = gameService;
     }
 
     @GetMapping("/test")
@@ -33,32 +32,8 @@ public class MainCtrl {
     }
 
     @GetMapping()
-    public String game(Model model, HttpSession session) {
-        if (session.getAttribute("word") == null) {
-            String randomWord = wordService.selectRandomWord();
-            String actualWord = wordService.initShowActualWord(randomWord);
-            List<String> hintsFromAPI = dictService.getHints(randomWord);
-            String collectedHints = String.join(" \n || ", hintsFromAPI);
-            String imageUrl = imageService.getImageURL(randomWord);
-
-            session.setAttribute("hintList", collectedHints);
-            session.setAttribute("blindWord", actualWord);
-            session.setAttribute("word", randomWord);
-            session.setAttribute("imageUrl", imageUrl);
-            session.setAttribute("isWordGuessed", false);
-        }
-        String word = (String) session.getAttribute("word");
-        String actualWord = (String) session.getAttribute("blindWord");
-        String hintsFromAPI = (String) session.getAttribute("hintList");
-        String imageUrl = (String) session.getAttribute("imageUrl");
-        boolean isWordGuessed = (boolean) session.getAttribute("isWordGuessed");
-
-        model.addAttribute("blindWord", actualWord);
-        model.addAttribute("hintList", hintsFromAPI);
-        model.addAttribute("imageUrl", imageUrl);
-        model.addAttribute("isWordGuessed", isWordGuessed);
-        model.addAttribute("word", word); // at the end to remove (for review purposes)
-
+    public String game(Model model) {
+        model.addAttribute("game",gameService.getGame());
         return "punsGame";
     }
 
