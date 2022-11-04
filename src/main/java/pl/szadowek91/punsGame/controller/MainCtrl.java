@@ -46,8 +46,8 @@ public class MainCtrl {
     }
 
     @PostMapping("/newGame")
-    public String newGame(HttpSession session) {
-        session.invalidate();
+    public String newGame() {
+        gameService.createGame();
         return "redirect:/";
     }
 }
