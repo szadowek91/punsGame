@@ -2,9 +2,7 @@ package pl.szadowek91.punsGame.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.Id;
 import java.util.List;
 

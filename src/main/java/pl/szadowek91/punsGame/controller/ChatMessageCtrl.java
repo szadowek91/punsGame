@@ -20,9 +20,6 @@ public class ChatMessageCtrl {
     @MessageMapping("/chat")
     @SendTo("/topic/messages") // broker name/queue name
     public ChatMessage getMessage(ChatMessage chatMessage) {
-//        String incomingWord = chatMessage.getValue();
-//        String actualWord = getActualWord();
-//        wordService.checkWord(incomingWord, actualWord);
         ChatMessage message = new ChatMessage(chatMessage.getValue() + "from GUI test1");
         return message;
     }

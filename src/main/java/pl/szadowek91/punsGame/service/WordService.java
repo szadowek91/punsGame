@@ -4,8 +4,8 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import pl.szadowek91.punsGame.entity.WordEntity;
 import pl.szadowek91.punsGame.utils.FileUtils;
-import pl.szadowek91.punsGame.utils.RandomUtil;
 import pl.szadowek91.punsGame.utils.MapperUtil;
+import pl.szadowek91.punsGame.utils.RandomUtil;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -39,16 +39,16 @@ public class WordService {
 
     public String checkLetterInWord(String inputLetter, String word, String actualWord) {
         LinkedList<String> replacedWord = new LinkedList<>();
-            List<String> strings = Arrays.stream(word.split("")).toList();
-            for (String letter : strings) {
-                String replacedLetter = letter.replace(letter.charAt(0), '_');
-                if (letter.matches(inputLetter.toUpperCase())) {
-                    replacedLetter = letter;
-                } else if (actualWord.contains(letter)) {
-                    replacedLetter = letter;
-                }
-                replacedWord.add(replacedLetter);
+        List<String> strings = Arrays.stream(word.split("")).toList();
+        for (String letter : strings) {
+            String replacedLetter = letter.replace(letter.charAt(0), '_');
+            if (letter.matches(inputLetter.toUpperCase())) {
+                replacedLetter = letter;
+            } else if (actualWord.contains(letter)) {
+                replacedLetter = letter;
             }
+            replacedWord.add(replacedLetter);
+        }
         return String.join(" ", replacedWord);
     }
 

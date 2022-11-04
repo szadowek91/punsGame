@@ -6,13 +6,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.szadowek91.punsGame.config.Properties;
 import pl.szadowek91.punsGame.dto.image.ImageDto;
-import pl.szadowek91.punsGame.dto.word.WordDictionaryDto;
 import pl.szadowek91.punsGame.utils.FileUtils;
-
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,7 +34,7 @@ public class ImageService {
 
     private Optional<ImageDto> getAllImageInfo(String imageName) {
         try {
-            String urlWithKey = Properties.PIXABAY_API_MAIN_URL +"?key=" + apiKey + "&q="+ imageName +"&image_type=photo";
+            String urlWithKey = Properties.PIXABAY_API_MAIN_URL + "?key=" + apiKey + "&q=" + imageName + "&image_type=photo";
             URL url = new URL(urlWithKey);
             InputStreamReader reader = new InputStreamReader(url.openStream());
             String s = FileUtils.readInputStream(reader);
