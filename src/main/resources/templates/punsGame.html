@@ -18,7 +18,7 @@
 
 <div>
 <!--    <form action="/enteredPhrase" method="post" role="form">-->
-    <label>Your text:</label><input id="msgToSend" name="msgToSend" th:type="text">
+    <label>Your text:</label><input id="msgToSend" name="msgToSend" th:type="text"><input type="hidden" th:value="${game.id}" id="gameId">
     <button onclick="sendMessage()" type="submit" class="btn btn-warning">Send</button>
     <p id="response"></p>
 <!--    </form>-->
