@@ -49,4 +49,8 @@ public class GameService {
         return gameDto;
     }
 
+    public boolean isWordCorrect(String word) {
+        return gameRepo.getGame().getWordToGuess().matches(word.toUpperCase());
+    }
+
 }
