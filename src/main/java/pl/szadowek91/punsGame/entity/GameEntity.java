@@ -3,8 +3,10 @@ package pl.szadowek91.punsGame.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.Id;
+
+import javax.persistence.Transient;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author PG
@@ -13,9 +15,9 @@ import java.util.List;
 @Setter
 public class GameEntity {
 
-    @Id
+    @Transient
     @Setter(AccessLevel.NONE)
-    private String id;
+    private UUID id = UUID.randomUUID();
 
     private String wordToGuess;
 

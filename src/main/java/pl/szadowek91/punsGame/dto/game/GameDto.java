@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author PG
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 public class GameDto {
 
-    private String id;
+    private UUID id;
 
     private String blindWord;
 

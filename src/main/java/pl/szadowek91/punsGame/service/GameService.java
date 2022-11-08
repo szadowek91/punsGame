@@ -23,6 +23,7 @@ public class GameService {
         if (game == null) {
             return createGame();
         }
+        System.out.println(game.getId() + " : " + game.getWordToGuess());
         return game;
     }
 
@@ -34,10 +35,11 @@ public class GameService {
         game.setHintList(dictService.getHints(randomWord));
         game.setImageUrl(imageService.getImageURL(randomWord));
         gameRepo.setGame(game);
+        System.out.println(gameRepo.getGame().getId() + " : " + gameRepo.getGame().getWordToGuess());
         return gameRepo.getGame();
     }
 
-    public GameDto getGame(){
+    public GameDto getGame() {
         GameDto gameDto = new GameDto();
         GameEntity gameE = getGameE();
         gameDto.setBlindWord(gameE.getBlindWord());
